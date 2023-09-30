@@ -11,9 +11,9 @@ const Member = require("../models/Member");
 const memberLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const member = await Member.findOne({ where: { email: email }});
+    const member = await Member.findOne({ where: { email: email }}); 
     if (!member) {
-      return res.status(400).json({ status: false, message: "Member not found" });
+      return res.status(400).json({ status: false, message: "Member not found" }); 
     }
 
     const comparePassword = await bcrypt.compare(password, member.password);

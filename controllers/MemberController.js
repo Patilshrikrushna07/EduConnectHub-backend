@@ -9,7 +9,37 @@ const {
 const Member = require("../models/Member");
 const { memberDetailsResource, publicMemberDetailsResource } = require("../Resource/memberDetailsResource");
 
+const getLoginUserDetails = async (req, res) => {
+  const  member_id  = req.member_id;
+  try {
+    if (req.query.type) {
+      const member = await Member.findOne({ where: { id: member_id } });
+      return successResponse(
+        res,
+        "Public Member Details fetch Sucessfully!",
+        publicMemberDetailsResource(member) 
+      );
+    } else {
+      const member = await Member.findOne({ where: { id: member_id } });
+      if (member) {
+        return successResponse(
+          res,
+          "Member Details fetch Sucessfully!",
+          memberDetailsResource(member)
+        );
+      } else {
+        return res
+          .status(400)
+          .json({ status: false, message: "Member Details Not Found!" });
+      }
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return failureResponse(res, error);
+  }
+};
 const getUserDetails = async (req, res) => {
+  console.log(req.params.memberId);
   const  member_id  = req.params.memberId;
   try {
     if (req.query.type) {
@@ -67,4 +97,4 @@ const getAllUser = async (req, res) => {
   }
 };
 
-module.exports = { getUserDetails,getAllUser };
+module.exports = { getUserDetails,getAllUser,getLoginUserDetails };
