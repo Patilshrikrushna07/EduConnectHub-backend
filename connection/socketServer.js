@@ -24,8 +24,6 @@ function setupSocketServer(httpServer) {
     // socket.on("new message", (message) => {
     //   console.log("_______________message => " + message.text);
     // });
-    // In your setupSocketServer.js
-
     socket.on("new message", (messageData) => {
       const { senderId, recipientId, text } = messageData;
       socket.to(recipientId).emit("received message", {
