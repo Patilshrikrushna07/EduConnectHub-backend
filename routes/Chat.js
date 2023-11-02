@@ -1,8 +1,8 @@
-const express =require("express");
-const { sendMsg } = require("../controllers/ChatController");
-const router =express.Router();
+const express = require("express");
+const router = express.Router();
+const {sendMsg} = require("../controllers/ChatController");
+const auth = require("../middleware/auth");
 
+router.get("/send-message", sendMsg);
 
-
-
-router.route("send-msg").get(sendMsg)
+module.exports = router;

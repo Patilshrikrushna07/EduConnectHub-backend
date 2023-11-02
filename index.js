@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 5000;
 const con = require('./connection/DbConnect.js');
 const login_register_routes = require("./routes/login");
 const member_routes = require("./routes/MembersRoute.js");
+const chat_routes=require("./routes/Chat.js")
 const setupSocketServer = require('./connection/socketServer.js');
 const bodyParser = require('body-parser');
 
@@ -16,7 +17,7 @@ app.use(bodyParser.json())
 
 app.use("/api/auth", login_register_routes);
 app.use("/api", member_routes);
-app.use("/api/chat", member_routes);
+app.use("/api/chat", chat_routes);
 
 
 const io = setupSocketServer(server);
